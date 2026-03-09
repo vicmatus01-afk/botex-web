@@ -641,7 +641,7 @@ section {
 .hero-bg {
   position: absolute;
   inset: 0;
-  background-image: url('images/hero-main.png');
+  background-image: url('images/portada.webp');
   background-size: cover;
   background-position: center;
   opacity: .45;
