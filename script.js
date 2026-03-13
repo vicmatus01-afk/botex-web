@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const formSuccess = document.getElementById('form-success');
 
   if (quoteForm) {
-    quoteForm.addEventListener('submit', (e) => {
+    quoteForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       // Basic validation
@@ -138,16 +138,36 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
 
-      // Show success
-      quoteForm.style.opacity = '0';
-      quoteForm.style.transition = 'opacity .3s ease';
-      setTimeout(() => {
-        quoteForm.style.display = 'none';
-        if (formSuccess) {
-          formSuccess.style.display = 'block';
-          formSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      // Submit to Formspree via fetch
+      const submitBtn = quoteForm.querySelector('[type="submit"]');
+      if (submitBtn) submitBtn.disabled = true;
+
+      try {
+        const response = await fetch(quoteForm.action, {
+          method: 'POST',
+          body: new FormData(quoteForm),
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+          // Show success
+          quoteForm.style.opacity = '0';
+          quoteForm.style.transition = 'opacity .3s ease';
+          setTimeout(() => {
+            quoteForm.style.display = 'none';
+            if (formSuccess) {
+              formSuccess.style.display = 'block';
+              formSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+          }, 300);
+        } else {
+          alert('Hubo un error al enviar el formulario. Por favor inténtalo de nuevo.');
+          if (submitBtn) submitBtn.disabled = false;
         }
-      }, 300);
+      } catch (err) {
+        alert('Error de conexión. Verifica tu internet e inténtalo de nuevo.');
+        if (submitBtn) submitBtn.disabled = false;
+      }
     });
 
     // Clear error styling on input
