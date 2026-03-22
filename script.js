@@ -76,10 +76,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const subRopa = document.getElementById('sub-ropa');
   const subBlancos = document.getElementById('sub-blancos');
   const subLogotipos = document.getElementById('sub-logotipos');
-  const subTrad = document.getElementById('sub-tradicional');
   const ubicacionGroup = document.getElementById('ubicacion-group');
 
-  const allSubs = [subUniformes, subRopa, subBlancos, subLogotipos, subTrad, ubicacionGroup];
+  const allSubs = [subUniformes, subRopa, subBlancos, subLogotipos, ubicacionGroup];
 
   function hideAllSubs() {
     allSubs.forEach(sub => sub && sub.classList.remove('visible'));
@@ -97,7 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       if (val === 'blancos' && subBlancos) subBlancos.classList.add('visible');
       if (val === 'logotipos' && subLogotipos) subLogotipos.classList.add('visible');
-      if (val === 'tradicional' && subTrad) subTrad.classList.add('visible');
     });
   }
 
